@@ -1,0 +1,24 @@
+name: test
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+      - name: Build
+        run: node build.mjs
+      - name: Run tests (mocked D1 / AI / push)
+        run: node --no-warnings test/run.mjs
+      - name: Check dist/worker.js is up to date
+        run: |
+          if ! git diff --quiet -- dist/worker.js; then
+            echo "::error::dist/worker.js 与源码不一致：请在本地运行 node build.mjs 后提交 dist/worker.js"
+            exit 1
+          fi
