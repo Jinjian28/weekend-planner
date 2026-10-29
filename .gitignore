@@ -1,0 +1,9 @@
+node_modules/
+.wrangler/
+.dev.vars
+.env
+*.log
+.DS_Store
+Thumbs.db
+# test build (dist/worker.js itself IS committed so people can copy-paste it)
+dist/worker.test.mjs
