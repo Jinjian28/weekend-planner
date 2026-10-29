@@ -1,0 +1,23 @@
+{
+  // 周末去哪儿 · Cloudflare Worker 配置
+  // 「Deploy to Cloudflare」一键部署 / `npx wrangler deploy` 都会读取这个文件：
+  // 自动创建 D1 数据库并绑定为 DB，自动设置每 5 分钟一次的定时任务。
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "weekend-planner",
+  "main": "dist/worker.js",
+  "compatibility_date": "2026-10-01",
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "weekend-planner-db",
+      // 一键部署时会自动创建新数据库并替换成你自己的 ID
+      "database_id": "00000000-0000-0000-0000-000000000000"
+    }
+  ],
+  "triggers": {
+    "crons": ["*/5 * * * *"]
+  },
+  "observability": {
+    "enabled": true
+  }
+}
